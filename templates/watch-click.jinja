@@ -1,0 +1,22 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+<audio class="js-audio" src=""></audio>
+<main class="main-video">
+    <div class="js-overlay-page overlay">
+ 		<div class="overlay-mask"></div>
+ 		<div class="overlay-content">
+			<div class="js-overlay-badge overlay-badge" style="width: 10em;"></div>
+            <p>{{ overlay.instructions }}</p>
+		</div>
+	</div>
+    <section class="container container-video container-watch-click">
+        <div class="controls-watch-click">
+            {% if instructions %}<p>{{ instructions }}</p> {% endif %}
+            <a class="js-button-watch-click button button-primary" href="#">{{ button.text }}</a>
+        </div>
+        <video class="js-video player-video"
+            data-audio-video='{{ scenes | jsonify }}'
+            src="" type="video/mp4"></video>
+    </section>
+</main>
+{% endblock content %}

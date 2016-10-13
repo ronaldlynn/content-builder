@@ -1,0 +1,68 @@
+{% extends "base.jinja" %}
+{% block content %}
+    <div class="container container-info-slide{% if header_size == 'large' %} container-info-slide-header-large{% elif header_size == 'medium' %} container-info-slide-header-medium{% endif %}">
+        <header class="header-info-slide">
+            {% if header_size == 'large' %}
+                <div class="info-slide-giant">
+                    {% if giant_subheading %}<span class="info-slide-subheading">{{ giant_subheading }}</span>{% endif %}
+                    {% if giant_heading %}<span class="info-slide-heading">{{ giant_heading }}</span>{% endif %}
+                </div>
+                <div class="info-slide-heading-copy">
+                    {% for subheading in subheadings -%}
+                    <h2>{{ subheading }}</h2>
+                    {%- endfor -%}
+                    {% if subheading %}<h2>{{ subheading }}</h2>{% endif %}
+                    {% if heading %}<h1>{{ heading }}</h1>{% endif %}
+                    {% if tertiary_heading %}<h3>{{ tertiary_heading }}</h3>{% endif %}
+                </div>
+                {% if badge %}<img class="badge-info-slide" src="{{ badge.url }}" alt="{{ badge.alt }}">{% endif %}
+            {% elif header_size == 'medium'%}
+                <div class="info-slide-giant">
+                    {% if giant_subheading %}<span class="info-slide-subheading">{{ giant_subheading }}</span>{% endif %}
+                    {% if giant_heading %}<span class="info-slide-heading">{{ giant_heading }}</span>{% endif %}
+                </div>
+                <div class="info-slide-heading-copy info-slide-details-heading-copy">
+                    {% if heading %}<h1>{{ heading }}</h1>{% endif %}
+                </div>
+            {% else %}
+                {% if heading %}<h1>{{ heading }}</h1>{% endif %}
+                {% if subheading %}<h2>{{ subheading }}</h2> {% endif %}
+            {% endif %}
+        </header>
+        <main class="main-info-slide">
+            {% if instructions %}<p>{{ instructions }}{% endif %}
+            {% for column in columns %}
+            <section class="column column-1-of-{{ loop.length }}{% for clazz in column.classes %} {{ clazz }}{% endfor %}">
+                {% if column.image %}<img class="image-info-slide" src="{{ column.image.url }}" alt="{{ column.image.alt }}">{% endif %}
+                <h1>{{ column.heading }}</h1>
+                <h2>{{ column.subheading }}</h2>
+                {% for widget in column.widgets %}
+                {% if widget.type == "ordered-list" %}
+                {% if widget.intro %}<p class="notes-info-slide">{{ widget.intro }}</p>{% endif %}
+                <ol{%- if widget.numbering %} type="{{ widget.numbering }}"{%- endif %} class="list-info-slide">
+                    {% for list_item in widget.list_items %}
+                    <li class="list-item-info-slide">{{ list_item }}</li>
+                    {% endfor %}
+                </ol>
+                {% elif widget.type == "unordered-list" %}
+                <ul class="list-info-slide">
+                    {% for list_item in widget.list_items %}
+                    <li class="list-item-info-slide">{{ list_item }}</li>
+                    {% endfor %}
+                </ul>
+                {% elif widget.type == "paragraph" %}
+                    <p>{{ widget.content }}</p>
+                {% elif widget.type == "link" -%}
+                    <a class="{% for clazz in widget.classes %} {{ clazz }}{% endfor %}" href="{{ widget.url }}"{% if widget.target %} target="{{ widget.target }}{% endif %}">{{ widget.content }}</a>
+                {%- endif %}
+                {% endfor %}
+            </section>
+            {% endfor %}
+        </main>
+        {% if footer %}
+        <footer class="footer-info-slide">
+            <p>{{ footer }}</p>
+        </footer>
+        {% endif %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,38 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+    <main>
+        {% if has_overlay -%}
+        <div class="js-overlay-page overlay">
+            <div class="overlay-mask"></div>
+            <div class="overlay-content">
+                <p class="js-overlay-body-copy overlay-body-copy"></p>
+                <button class="js-overlay-close-button button button-primary">Ok</button>
+            </div>
+        </div>{% endif %}
+        <section class="container container-property-matrix">
+            <div class="property-matrix-game-board column">
+                {% if header %}
+                <header class="property-matrix-instructions">
+                    {% for widget in header.widgets %}
+                    {% if widget.type == 'heading1' %}<h1 class="heading">{{ widget.content }}</h1>{% endif %}
+                    {% if widget.type == 'paragraph' %}<p class="copy">{{ widget.content }}</p>{% endif %}
+                    {% endfor %}
+                </header>
+                {% endif %}
+                <div>
+                {% for tile in tiles %}
+                <div class="js-tile property-matrix-tile"{% if tile.correct == "true" %} data-correct="{{ tile.correct }}"{% endif %}{% if tile.feedback %} data-feedback="{{ tile.feedback }}"{% endif %} data-content="{{ tile.content }}"><span class="tile-content">{{ tile.content }}</span></div>
+                {% endfor %}
+                </div>
+                {% if continue_message %}<p class="js-continue property-matrix-continue-copy copy">{{ continue_message }}</p>{% endif %}
+            </div>
+            <div class="property-matrix-results-board column">
+                <h2 class="heading">{{ scoreboard.title }}</h2>
+                <div class="js-element-empty property-matrix-element-empty" style="background-image: url({{ scoreboard.empty_image }}); width: {{ scoreboard.empty_image_width }}; height: {{ scoreboard.empty_image_height }}">
+                    <div class="js-ingredient-progress property-matrix-element-full" style="background-image: url({{ scoreboard.full_image }}); width: {{ scoreboard.full_image_width }};">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

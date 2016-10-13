@@ -1,0 +1,28 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+    <main>
+        <div class="js-overlay-page overlay">
+            <div class="overlay-mask"></div>
+            <div class="overlay-content">
+                <h2 class="js-overlay-heading overlay-heading"></h2>
+                <p class="js-overlay-body-copy overlay-body-copy"></p>
+                <button class="js-overlay-close-button button overlay-close-button">Ok</button>
+            </div>
+        </div>
+        <section class="container container-button-choice"{% if audio_intro %} data-audio-intro="{{ audio_intro }}"{% endif %}{% if audio_outro %} data-audio-outro="{{ audio_outro }}"{% endif %}>
+            <header class="header header-button-choice">
+                <h1 class="question question-button-choice">{{ question }}</h1>
+            </header>
+            <div class="instructions instructions-button-choice">{{ instructions }}</div>
+            {% for answer in answers -%}
+            <div class="column column-1-of-{{ answers|length }}">
+                <a class="js-clickable clickable-button-choice" data-use-overlay="true"
+                    {%- if answer.feedback.heading %} data-feedback-heading="{{ answer.feedback.heading }}"{% endif -%}
+                    {%- if answer.feedback.bodyCopy %} data-feedback-body="{{ answer.feedback.bodyCopy }}"{% endif -%}
+                    {%- if answer.feedback.audio %} data-feedback-audio="{{ answer.feedback.audio }}"{% endif -%}
+                    href="#"><img class="image-button-choice" src="{{ answer.image.url }}" alt="{{ answer.image.alt_text }}"></a>
+            </div>
+            {%- endfor %}
+        </section>
+    </main>
+{% endblock content %}

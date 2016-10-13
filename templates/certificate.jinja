@@ -1,0 +1,11 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+    <main>
+        <section class="js-certificate container container-certificate"{% if audio_intro %} data-audio-intro="{{ audio_intro }}"{% endif %}>
+            <img src="{{ image.url }}" alt="{{ image.description }}">
+            {% if heading %}<h1 class="heading-certificate">{{ heading }}</h1>{% endif %}
+            {% if subheading %}<h2 class="subheading-certificate">{{ subheading }}</h2>{% endif %}
+            {% for paragraph in paragraphs %}<p class="paragraph-certificate">{{ paragraph }}</p>{% endfor %}
+        </section>
+    </main>
+{% endblock content %}

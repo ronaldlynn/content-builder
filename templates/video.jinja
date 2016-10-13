@@ -1,0 +1,8 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+    <main class="main-video">
+        <section class="container container-video">
+            <video class="{% if video.return_previous %}js-video-return-back {% endif %}player-video" src="{{ video.url }}" type="video/mp4"{% if video.autoplay %} autoplay{% endif %}{% if video.controls %} controls {% endif %}></video>
+        </section>
+    </main>
+{% endblock content %}

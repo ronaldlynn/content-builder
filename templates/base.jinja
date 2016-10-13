@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% for stylesheet in stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{common_folder}}{{ stylesheet.url }}">
+    {% endfor %}
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body {% if body_classes %} class="{% for clazz in body_classes %}{{ clazz }} {% endfor %}"{% endif %}{% if audio_intro %} data-audio-intro="{{ audio_intro }}"{% endif %}{% if audio_outro %} data-audio-outro="{{ audio_outro }}"{% endif %}{% if audio_feedback_correct %} data-audio-feedback-correct="{{ audio_feedback_correct }}"{% endif %}{% if audio_feedback_incorrect %} data-audio-feedback-incorrect="{{ audio_feedback_incorrect }}"{% endif %}{% if background_image %} data-background-image="{{ background_image}}"{% endif %}>
+{% block content %}
+{% endblock content %}
+{% for script in scripts %}
+    <script src="{{common_folder}}{{ script.url }}"></script>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends "base.jinja" -%}
+{% block content %}
+    <main>
+        <section class="js-landing container container-landing"{% if audio_intro %} data-audio-intro="{{ audio_intro }}"{% endif %}>
+            {% if image -%}
+            <div class="column-landing">
+            <img class="image-landing" src="{{ image.url }}" alt="{{ image.description }}">
+            </div>
+            <div class="column-landing">
+            {% endif %}
+            {% if leader -%}
+            <h2 class="leader-landing">{{ leader }}</h2>
+            {% endif -%}
+            {% if heading %}
+            <h1>{{ heading }}</h1>
+            {% endif %}
+            {% if subheading -%}
+            <h2>{{ subheading }}</h2>
+            {% endif -%}
+            {% if body_upper -%}
+            <p class="upper">{{ body_upper }}</p>
+            {% endif %}
+            {% if body -%}
+            <p>{{ body }}</p>
+            {% endif %}
+            {% for paragraph in paragraphs -%}
+            <p>{{ paragraph }}</p>
+            {% endfor %}
+
+            {% if ordered_list -%}
+            <ol>
+                {% for list_item in ordered_list -%}
+                <li>{{ list_item }}</li>
+                {%- endfor %}
+            </ol>
+            {%- endif %}
+
+            {% if instructions -%}
+            <p>{{ instructions }}</p>
+            {% endif %}
+            {% if button -%}
+            <a class="{% if button.audio %}js-button-audio {% endif %}button button-landing{% if button.class %} {{ button.class }} {% endif %}"
+                href="{% if button.url %}{{ button.url }}{% else %}#{% endif %}"
+                {% if button.url %} target="_blank"{% endif %}
+                {% if button.audio %} data-button-audio="{{ button.audio }}"{% endif %}>
+                {{ button.text }}
+            </a>
+            {% endif -%}
+            {% for button in buttons -%}
+            <a class="{% if button.audio %}js-button-audio {% endif %}button button-landing"
+                href="{% if button.url %}{{ button.url }}{% else %}#{% endif %}"
+                {% if button.url %} target="{%- if button.target -%}{{button.target}}{%- else -%}_blank{%- endif -%}"{% endif %}
+                {% if button.audio %} data-button-audio="{{ button.audio }}"{% endif %}>
+                {{ button.text }}
+            </a>
+            {% endfor -%}
+            {% if image %}
+            </div>
+            {% endif %}
+        </section>
+    </main>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+	<main>
+		<div class="js-overlay-page overlay">
+	 		<div class="overlay-mask"></div>
+	 		<div class="overlay-content">
+				<div class="js-overlay-badge overlay-badge"></div>
+				<h2 class="js-overlay-heading overlay-heading"></h2>
+				<p class="js-overlay-body-copy overlay-body-copy"></p>
+				<button class="js-overlay-close-button button overlay-close-button">Ok</button>
+			</div>
+		</div>
+ 		<section class="container container-true-false" data-audio-intro="{{ audio_intro }}">
+ 			<header class="header-true-false">
+				{% if subheading %}<p class="subheading subheading-true-false">{{ subheading }}</p>{% endif %}
+				<h1 class="question question-true-false">{{ question }}</h1>
+			</header>
+			<div class="activity activity-true-false">
+				<div class="js-drop-zone response response-true-false response-negative" data-response="{{ responses[0].correct }}"><i class="response-icon fa fa-close"></i><div class="response-label">{{ responses[0].text }}</div></div>
+				<ul class="answers answers-true-false">
+					{% for answer in answers %}
+					<li class="js-draggable answer answer-true-false{% if loop.first %} is-current{% endif %}" data-correct="{{ answer.correct }}"
+					{%- if answer.audio_intro %} data-audio-intro="{{ answer.audio_intro }}"{% endif %}
+					{%- if answer.feedback.correct.heading %} data-heading-correct="{{ answer.feedback.correct.heading }}"{% endif %}
+					{%- if answer.feedback.incorrect.heading %} data-heading-incorrect="{{ answer.feedback.incorrect.heading }}"{% endif %}
+					{%- if answer.feedback.correct.bodyCopy %} data-copy-correct="{{ answer.feedback.correct.bodyCopy }}"{% endif %}
+					{%- if answer.feedback.incorrect.bodyCopy %} data-copy-incorrect="{{ answer.feedback.incorrect.bodyCopy }}"{% endif %}
+					{%- if answer.feedback.correct.audio %} data-audio-correct="{{ answer.feedback.correct.audio }}"{% endif %}
+					{%- if answer.feedback.incorrect.audio %} data-audio-incorrect="{{ answer.feedback.incorrect.audio }}"{% endif %}
+				>{% if answer.image %}<div class="answer-image answer-image-true-false" style="background-image: url({{ answer.image.url }});"></div>{% endif %}{% if answer.text %}{{ answer.text }}{% endif %}</li>{% endfor %}
+				</ul>
+				<div class="js-drop-zone response response-true-false response-affirmative" data-response="{{ responses[1].correct }}">
+					<i class="response-icon fa fa-check"></i>
+					<div class="response-label">{{ responses[1].text }}</div>
+				</div>
+			</div>
+			{% if instructions %}<p class="instructions instructions-true-false"><i class="fa fa-arrow-left"></i> {{ instructions }} <i class="fa fa-arrow-right
+			"></i></p>{% endif %}
+			{% if after_activity_html %}{{ after_activity_html }}{% endif %}
+		</section>
+	</main>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+    <main>
+        <section class="container container-carousel">
+            <div class="js-carousel carousel">
+                {% if heading %}<h1 class="carousel-heading">{{ heading }}</h1>{% endif %}
+                <div class="carousel-nav carousel-nav-left">
+                    <a class="js-carousel-nav-back carousel-nav-button carousel-nav-button-back" href="#"></a>
+                </div>
+                <div class="carousel-main">
+                    <ul class="carousel-cards">
+                        {%- for slide in slides %}
+                        <li class="js-carousel-slide carousel-card is-current" data-audio-slide="{{ slide.audio }}">
+                            {% if slide.link %}<a href="{{ slide.link }}" target="_blank">{% endif %}<img class="carousel-image" src="{{ slide.image.url }}" alt="{{ slide.image.alt_text }}">{% if slide.link %}</a>{% endif %}
+                            {%- if loop.last %}<p class="carousel-last">{{ last_slide_text }}</p>{% endif %}
+                        </li>
+                        {%- endfor %}
+                    </ul>
+                </div>
+                <div class="carousel-nav carousel-nav-right">
+                    <a class="js-carousel-nav-next carousel-nav-button carousel-nav-button-next" href="#"></a>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+    <main>
+        <section class="js-split-screen container container-split-screen">
+            <h1 class="split-screen-heading">{{ heading }}</h1>
+            <p class="instructions split-screen-instructions">{{ instructions }}</p>
+            <div class="split-screen-panel">
+                <ul class="split-screen-list">
+                    {% for slide in slides %}
+                    <li class="js-clickable split-screen-list-item"
+                        {% if slide.audio %}
+                        data-audio-slide="{{ slide.audio }}"
+                        {% endif %}
+                    ><a class="split-screen-link" href="#">{{ slide.link_text }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="split-screen-panel">
+                {% if cover_photo %}<img class="js-cover-photo" src="{{ cover_photo.url }}" alt="{{ cover_photo.description }}">{% endif %}
+                <ul class="split-screen-list">
+                    {% for slide in slides %}
+                    <li class="js-clickable-target split-screen-list-item"><img class="split-screen-image" src="{{ slide.image.url}}"
+                        alt="{{ slide.image.description}}"></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

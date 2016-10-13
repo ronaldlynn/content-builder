@@ -1,0 +1,12 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+    <main>
+        <figure class="imgcompare-container">
+            <img src="{{ image_before.url }}" alt="{{ image_before.alt_text }}" data-position="right">
+            <div class="imgcompare-resize">
+                <img src="{{ image_after.url}}" alt="{{ image_after.alt_text }}" data-position="left">
+            </div>
+            <span class="js-draggable imgcompare-handle"></span>
+        </figure>
+    </main>
+{% endblock %}

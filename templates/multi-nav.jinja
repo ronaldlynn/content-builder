@@ -1,0 +1,26 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+    <main>
+        <section class="container container-{{ nav_type }}-nav{% if nodes|length > 12 or stacked %} stacked{% endif %} {{ sub_type }}"{% if audio_intro %} data-audio-intro="{{ audio_intro }}"{% endif %}>
+            <header class="header-{{ nav_type }}-nav">
+                <h1 class="heading heading-{{ nav_type }}-nav">{{ heading }}</h1>
+                <p class="subheading subheading-{{ nav_type }}-nav">{{ subheading }}</p>
+            </header>
+            <div class="activity activity-{{ nav_type }}-nav">
+                <ul class="nodes nodes-{{ nav_type }}-nav">
+                    {% for node in nodes %}<li class="js-nav-item node-{{ nav_type }}-nav node-{{ loop.index }}-of-{{ nodes|length }}
+                        {%- if loop.index == 1 %} top
+                        {%- elif loop.index == nodes|length/2 + 1 %} bottom
+                        {%- elif loop.index > (nodes|length/2)|round %} left
+                        {%- else %} right
+                        {%- endif %}">
+                        <a class="js-nav-link link link-{{ nav_type }}-nav" href="{{ node.url }}">{{ node.text }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {%- if complete_message -%}<p class="js-next-message message next-message">{{ complete_message }}</p>{%- endif -%}
+                {%- if back_nav -%}<a class="js-nav-back nav-back" href="{{ back_nav.url }}">{{ back_nav.text }}</a>{%- endif -%}
+            </div>
+        </section>
+    </main>
+{% endblock content %}

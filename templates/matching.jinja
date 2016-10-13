@@ -1,0 +1,39 @@
+{%- extends "base.jinja" -%}
+{% block content %}
+        <main>
+        <div class="js-overlay-page overlay">
+            <div class="overlay-mask"></div>
+            <div class="overlay-content">
+                <div class="js-overlay-badge overlay-badge"></div>
+                <h2 class="js-overlay-heading overlay-heading"></h2>
+                <p class="js-overlay-body-copy overlay-body-copy"></p>
+                <button class="js-overlay-close-button overlay-button button">Ok</button>
+                {% if allow_retry %}
+                <a class="js-overlay-retry-button overlay-button button is-hidden" href="#">Try Again</a>
+                {% endif %}
+            </div>
+        </div>
+        <section class="container container-matching"{% if audio_intro %} data-audio-intro="{{ audio_intro }}"{% endif %}>
+            <header class="header header-matching">
+                <p class="subheading subheading-matching">{{ subheading }}</p>
+                <h1 class="question question-matching">{{ question }}</h1>
+            </header>
+            {% if instructions %}<p class="instructions instructions-matching"><i class="instructions-icon fa fa-arrow-down"></i>{{ instructions }}<i class="instructions-icon fa fa-arrow-down"></i></p>{% endif %}
+            <div class="activity activity-matching">
+                <ul class="answers answers-matching">
+                    {% for answer in answers -%}
+                    <li class="js-draggable answer answer-matching{% if answer.default %} is-current{% endif %}{% if answer.image %} answer-matching-image{% endif %} is-transparent" data-correct="{{ answer.correct }}"{% if answer.feedback.correct.heading %} data-heading-correct="{{ answer.feedback.correct.heading }}"{% endif %}{% if answer.feedback.incorrect.heading %} data-heading-incorrect="{{ answer.feedback.incorrect.heading }}"{% endif %}{% if answer.feedback.correct.bodyCopy %} data-copy-correct="{{ answer.feedback.correct.bodyCopy }}"{% endif %}{% if answer.feedback.incorrect.bodyCopy %} data-copy-incorrect="{{ answer.feedback.incorrect.bodyCopy }}"{% endif %}>
+                        {% if answer.image %}<img src="{{ answer.image.url }}" alt="{{ answer.image.alt_text }}">{% endif %}
+                        {% if answer.text %}<div>{{ answer.text }}</div>{% endif -%}
+                    </li>
+                    {% endfor -%}
+                </ul>
+            </div>
+            <div class="drawer drawer-bottom">
+                <ul class="responses responses-matching">
+                    {% for response in responses %}<li class="js-drop-zone response response-matching" data-response="{{ response.correct }}">{{ response.text }}</li>{% endfor %}
+                </ul>
+            </div>
+        </section>
+    </main>
+{% endblock content %}
